@@ -1,12 +1,15 @@
 import React from 'react'; 
 import "./App.css";
+import Navbar from './components/Navbar';
+import Content from './components/Content';
 
 const App = () => {
-    return (
-        <div className='w-full bg-black text-white'>
-            App 
-        </div>
-    )
+  return (
+    <>
+        <Navbar />
+        <Content/>
+    </>
+  );
 }
 
 export default App;
