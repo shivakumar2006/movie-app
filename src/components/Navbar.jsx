@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-// import { Link } from 'react-router-dom';
 import { SiThemoviedatabase } from "react-icons/si";
+import { FaSearch } from "react-icons/fa";
+import { FiSun } from "react-icons/fi";
+import { BsMoonStarsFill } from "react-icons/bs";
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleTheme } from '../app/ThemeSlice';
+
 
 const Navbar = () => {
 
@@ -9,6 +14,8 @@ const Navbar = () => {
     const [ isMovieVisible, setIsMovieVisible ] = useState(false);
     const [ isTvVisible, setIsTvVisible ] = useState(false);
     const [ isPopularVisible, setIsPopularVisible ] = useState(false);
+    const theme = useSelector((state) => state.theme.theme);
+    const dispatch = useDispatch();
 
     let handleScrollY = useRef(0);
 
@@ -19,7 +26,7 @@ const Navbar = () => {
             } else {
                 setVisible(true); 
             }
-            lastScrollY = window.scrollY;
+            handleScrollY.current = window.scrollY;
         }
     }
 
@@ -30,6 +37,10 @@ const Navbar = () => {
             window.removeEventListener("scroll", handleScroll);
         }
     })
+
+    useEffect(() => {
+        document.body.className = theme; // Adds 'light' or 'dark' to body
+      }, [theme]);
 
     return (
         <motion.div
@@ -113,8 +124,23 @@ const Navbar = () => {
                         </div>
                     )}
                 </div>
-
                 
+                <div className='w-80 ml-130 flex flex-row justify-evenly items-center'>
+                    <div className={theme === "dark" ? 'text-white' : 'text-black'}>
+                        <button 
+                        className='text-white bg-none flex items-center text-2xl cursor-pointer'
+                            onClick={() => dispatch(toggleTheme())}
+                        >
+                            {theme === "dark" ? <FiSun /> : <BsMoonStarsFill />}
+                        </button>
+                    </div>
+                    <div className='text-blue-400 text-2xl cursor-pointer'>
+                        <FaSearch />
+                    </div>
+                    <div className='w-13 h-13 rounded-full border-white border-2 cursor-pointer'>
+
+                    </div>
+                </div>
             </div>
         </motion.div>
      );
