@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from "framer-motion";
 import { FaSearch } from "react-icons/fa";
 import { PuffLoader } from 'react-spinners';
+import { FaArrowTrendUp } from "react-icons/fa6";
 import { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery } from '../app/apiSLice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
@@ -12,6 +13,10 @@ const Content = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [freeWatchFilter, setFreeWatchFilter] = useState('tv'); // 'movie' or 'tv'
     const [ page, setPage ] = useState(2);
+    const [ isSuggestionVisible, setSuggestionVisible ] = useState(false); 
+
+    const inputRef = useRef(null); // Ref for the input field
+    const suggestionBoxRef = useRef(null);
 
     const { data: trendingData, error: trendingError, isLoading: trendingLoading } = useGetTrendingMoviesQuery(
         trendSelectedFilter === 'today' ? 'day' : 'week'
@@ -49,6 +54,19 @@ const Content = () => {
         tv.name?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    const handleTrendClick = (title) => {
+        setSearchTerm(title)
+        setSuggestionVisible(true);
+    }
+
+    useEffect(() => {
+        if(searchTerm.trim().length > 0) {
+            setSuggestionVisible(true);
+        } else {
+            setSuggestionVisible(false);
+        }
+    }, [searchTerm])
+
 
     console.log("trendingdata : ", trendingData);
     console.log("freemoviedata: ", freeMoviesData);
@@ -68,24 +86,35 @@ const Content = () => {
                 />
             </div>
 
+            {/* suggestion box */}
+            {isSuggestionVisible && (
+            <div className="w-full h-82 z-20 bg-white top-0 border-gray-200 flex flex-col items-center">
+                <div className='w-full h-10 bg-gray-100 flex flex-row'>
+                    <div className='flex flex-row items-center gap-2 ml-40'>
+                        <FaArrowTrendUp className='text-2xl'/>
+                        <p className='text-xl font-bold'>Trending</p>
+                    </div>
+                </div>
+
+                {trendingData?.results.slice(0, 10)?.map((movie) => (
+                <div key={movie.id} className='w-full h-8 border-gray-200 border hover:bg-gray-200'>
+                    <div className='flex flex-row items-center gap-6 ml-40 cursor-pointer'
+                        onClick={() => handleTrendClick(movie.title)}
+                    >
+                        <FaSearch className="text-xs my-2" />
+                        <p className='font-light text-sm'>{movie.title}</p>
+                    </div>
+                </div>
+                ))}
+            </div>
+            )}
+
             <div className="w-full h-80 border-2 flex flex-col justify-center items-center gap-10" style={{ background: "linear-gradient(90deg, rgba(1,41,73,1) 0%, rgba(1,40,62,1) 35%, rgba(9,59,88,1) 55%, rgba(2,71,103,1) 100%)" }}>
                 <div className="w-[1200px] h-30">
                     <div className="w-[1000px] h-12 mt-8 flex flex-col">
                         <h1 className="text-white font-bold text-5xl">WELCOME</h1>
                         <h1 className="text-white text-3xl mx-2">Millions of movies, TV shows, and people to discover, Explore now</h1>
                     </div>
-                </div>
-                <div className="w-[1200px] h-20 flex flex-row">
-                    <input
-                        type="text"
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                        placeholder="Search for a movies,tv shows, person..."
-                        className="w-[1000px] h-11 rounded-l-3xl bg-white px-5 placeholder:text-gray-800"
-                    />
-                    <button className="w-[140px] h-11 rounded-r-3xl shadow-xl bg-blue-500 text-white cursor-pointer flex items-center justify-center gap-2 hover:bg-blue-700">
-                        <FaSearch /> Search
-                    </button>
                 </div>
             </div>
 
