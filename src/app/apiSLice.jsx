@@ -7,10 +7,22 @@ export const tmdb = createApi({
     baseQuery: fetchBaseQuery({ baseUrl }),
     endpoints: (builder) => ({
         getPopularMovies: builder.query({
-            query: () => `movie/popular?api_key=${import.meta.env.VITE_REACT_API_KEY}`
-        })
+            query: (filter) => `movie/popular?filter=${filter}&api_key=${import.meta.env.VITE_REACT_API_KEY}`
+        }),
+        getTrendingMovies: builder.query({
+            query: (timeWindow) => `trending/movie/${timeWindow}?api_key=${import.meta.env.VITE_REACT_API_KEY}`
+        }),
+        getMovieTrailers : builder.query({
+            query: (movieId) => `movie/${movieId}/videos?api_key=${import.meta.env.VITE_REACT_API_KEY}`
+        }),
+        getFreeMovies: builder.query({
+            query: (page) => `discover/movie?with_watch_monetization_types=free&api_key=${import.meta.env.VITE_REACT_API_KEY}&page=${page}`
+        }),   
+        getFreeTVShows: builder.query({
+            query: () => `discover/tv?with_watch_monetization_types=free&api_key=${import.meta.env.VITE_REACT_API_KEY}`
+        })       
     })
 })
 
-export const { useGetPopularMoviesQuery } = tmdb;
+export const { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery } = tmdb;
 

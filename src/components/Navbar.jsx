@@ -49,7 +49,7 @@ const Navbar = () => {
             animate={{ y: visible ? 0 : -80 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         >
-            <div className='w-full h-18 bg-blue-950 flex flex-row items-center gap-8'
+            <div className='w-full h-18 bg-blue-950 flex flex-row items-center z-30 gap-8'
                 style={{
                     background: "linear-gradient(90deg, rgba(1,41,73,1) 0%, rgba(1,40,62,1) 35%, rgba(9,59,88,1) 55%, rgba(2,71,103,1) 100%)"
                 }}
