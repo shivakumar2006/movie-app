@@ -6,6 +6,7 @@ import { FiSun } from "react-icons/fi";
 import { BsMoonStarsFill } from "react-icons/bs";
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from '../app/ThemeSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 const Navbar = () => {
@@ -16,6 +17,7 @@ const Navbar = () => {
     const [ isPopularVisible, setIsPopularVisible ] = useState(false);
     const theme = useSelector((state) => state.theme.theme);
     const dispatch = useDispatch();
+    const Navigate = useNavigate();
 
     let handleScrollY = useRef(0);
 
@@ -73,7 +75,11 @@ const Navbar = () => {
                             style={{ opacity: isMovieVisible ? 1 : 0, transform: isMovieVisible ? 'translateY(0)' : 'translateY(20px)' }}
                         >
                             <div className='gap-5 text-black'>
-                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'>Popular</p>
+                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'
+                                    onClick={() => Navigate("/popular/movies")}
+                                >
+                                    Popular
+                                </p>
                                 <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'>Now playing</p>
                                 <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'>Upcoming</p>
                                 <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'>Top Rated</p>
@@ -96,7 +102,11 @@ const Navbar = () => {
                             style={{ opacity: isTvVisible ? 1 : 0, transform: isTvVisible ? 'translateY(0)' : 'translateY(20px)' }}
                         >
                             <div className='gap-5 text-black'>
-                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'>Popular</p>
+                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'
+                                    onClick={() => Navigate("/popular/tv")}
+                                >
+                                    Popular
+                                </p>
                                 <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'>Airing Today</p>
                                 <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'>On TV</p>
                                 <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'>Top Rated</p>

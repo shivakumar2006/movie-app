@@ -60,12 +60,32 @@ const Content = () => {
     }
 
     useEffect(() => {
-        if(searchTerm.trim().length > 0) {
+        if (searchTerm.trim().length > 0) {
             setSuggestionVisible(true);
         } else {
             setSuggestionVisible(false);
         }
-    }, [searchTerm])
+    
+        const handleClickOutside = (e) => {
+            // Check if the click is outside both the input and suggestion box
+            if (
+                suggestionBoxRef.current && !suggestionBoxRef.current.contains(e.target) &&
+                inputRef.current && !inputRef.current.contains(e.target)
+            ) {
+                setSuggestionVisible(false);
+            }
+        };
+    
+        // Add event listener for clicking anywhere on the document
+        document.addEventListener('click', handleClickOutside);
+    
+        // Cleanup event listener when the component is unmounted or when dependencies change
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [searchTerm]);
+    
+    
 
 
     console.log("trendingdata : ", trendingData);
@@ -88,7 +108,7 @@ const Content = () => {
 
             {/* suggestion box */}
             {isSuggestionVisible && (
-            <div className="w-full h-82 z-20 bg-white top-0 border-gray-200 flex flex-col items-center">
+            <div ref={suggestionBoxRef} className="w-full h-82 z-50 bg-white top-0 border-gray-200 flex flex-col items-center">
                 <div className='w-full h-10 bg-gray-100 flex flex-row'>
                     <div className='flex flex-row items-center gap-2 ml-40'>
                         <FaArrowTrendUp className='text-2xl'/>
@@ -183,7 +203,7 @@ const Content = () => {
                                     <LazyLoadImage
                                         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                                         alt={movie.title}
-                                        className="w-full h-full object-cover"
+                                        className="w-full h-full object-cover cursor-pointer"
                                         effect="blur"
                                     />
                                 </div>
@@ -235,7 +255,7 @@ const Content = () => {
                                     <LazyLoadImage
                                         src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                                         alt={item.title || item.name}
-                                        className="w-full h-full object-cover"
+                                        className="w-full h-full object-cover cursor-pointer"
                                         effect="blur"
                                     />
                                 </div>
