@@ -131,7 +131,9 @@ const Navbar = () => {
                             style={{ opacity: isPopularVisible ? 1 : 0, transform: isPopularVisible ? 'translateY(0)' : 'translateY(20px)' }}
                         >
                             <div className='gap-5 text-black'>
-                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'>Popular People</p>
+                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'
+                                    onClick={() => Navigate("/popularPeople")}
+                                >Popular People</p>
                             </div>
                         </div>
                     )}

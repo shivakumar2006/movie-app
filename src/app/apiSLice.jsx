@@ -26,9 +26,37 @@ export const tmdb = createApi({
         }),
         getPopularTvShows: builder.query({
             query: (page = 1) => `tv/popular?api_key=${import.meta.env.VITE_REACT_API_KEY}&page=${page}`
+        }),
+        getFilteredMovies: builder.query({
+            query: ({ language, minRating, sortBy, page }) => {
+              let queryParams = `?page=${page}`;
+          
+              if (language) queryParams += `&with_original_language=${language}`;
+              if (minRating) queryParams += `&vote_average.gte=${minRating}`;
+              if (sortBy) queryParams += `&sort_by=${sortBy}`;
+          
+              // 🔥 Append the API key here
+              queryParams += `&api_key=${import.meta.env.VITE_REACT_API_KEY}`;
+          
+              return `/discover/movie${queryParams}`;
+            }
+          }),
+        getFilteredTvShow: builder.query({
+            query: ({ language, minRating, sortBy, page }) => {
+                let queryParams = `?page=${page}`;
+
+                if(language) queryParams += `&with_original_language=${language}`;
+                if(minRating) queryParams += `&vote_average.gte=${minRating}`;
+                if(sortBy) queryParams += `&sort_by=${sortBy}`;
+
+                queryParams += `&api_key=${import.meta.env.VITE_REACT_API_KEY}`;
+
+                return `/discover/tv${queryParams}`;
+            }
         })
+          
     })
 })
 
-export const { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery, useGetPopularMoviesPagesQuery, useGetPopularTvShowsQuery } = tmdb;
+export const { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery, useGetPopularMoviesPagesQuery, useGetPopularTvShowsQuery, useGetFilteredMoviesQuery, useGetFilteredTvShowQuery } = tmdb;
 
