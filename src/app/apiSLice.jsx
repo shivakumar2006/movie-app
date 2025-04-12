@@ -20,9 +20,15 @@ export const tmdb = createApi({
         }),   
         getFreeTVShows: builder.query({
             query: () => `discover/tv?with_watch_monetization_types=free&api_key=${import.meta.env.VITE_REACT_API_KEY}`
-        })       
+        }),
+        getPopularMoviesPages: builder.query({
+            query: (page = 1) => `movie/popular?&api_key=${import.meta.env.VITE_REACT_API_KEY}&page=${page}`
+        }),
+        getPopularTvShows: builder.query({
+            query: (page = 1) => `tv/popular?api_key=${import.meta.env.VITE_REACT_API_KEY}&page=${page}`
+        })
     })
 })
 
-export const { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery } = tmdb;
+export const { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery, useGetPopularMoviesPagesQuery, useGetPopularTvShowsQuery } = tmdb;
 

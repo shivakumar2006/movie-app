@@ -51,12 +51,14 @@ const Navbar = () => {
             animate={{ y: visible ? 0 : -80 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         >
-            <div className='w-full h-18 bg-blue-950 flex flex-row items-center z-30 gap-8'
+            <div className='w-full h-18 bg-blue-950 flex flex-row items-center z-50 gap-8'
                 style={{
                     background: "linear-gradient(90deg, rgba(1,41,73,1) 0%, rgba(1,40,62,1) 35%, rgba(9,59,88,1) 55%, rgba(2,71,103,1) 100%)"
                 }}
             >
-                <div className='w-50 h-15 mx-10 text-6xl text-white flex justify-center items-center'>
+                <div className='w-50 h-15 mx-10 text-6xl text-white flex justify-center items-center cursor-pointer'
+                    onClick={() => Navigate("/")}
+                >
                 {/* M<RiMovie2AiFill />VIES */}
                 <SiThemoviedatabase />
                 </div>
@@ -71,7 +73,7 @@ const Navbar = () => {
 
                     {isMovieVisible && (
                         <div 
-                            className='w-40 h-35 mt-0 ml-20 font-light bg-white shadow-sm shadow-gray-400 rounded flex flex-col justify-center items-center overflow-hidden transition-all duration-300 ease-in-out absolute top-full'
+                            className='w-40 h-35 mt-0 ml-20 font-light bg-white shadow-sm shadow-gray-400 rounded flex flex-col justify-center items-center overflow-hidden transition-all duration-300 ease-in-out absolute top-full z-40'
                             style={{ opacity: isMovieVisible ? 1 : 0, transform: isMovieVisible ? 'translateY(0)' : 'translateY(20px)' }}
                         >
                             <div className='gap-5 text-black'>

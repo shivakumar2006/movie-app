@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from "framer-motion";
 import { FaSearch } from "react-icons/fa";
 import { PuffLoader } from 'react-spinners';
@@ -12,7 +12,7 @@ const Content = () => {
     const [ popularSelectedFilter, setPopularSelectedFilter ] = useState('streaming');
     const [searchTerm, setSearchTerm] = useState('');
     const [freeWatchFilter, setFreeWatchFilter] = useState('tv'); // 'movie' or 'tv'
-    const [ page, setPage ] = useState(2);
+    const [ page ] = useState(2);
     const [ isSuggestionVisible, setSuggestionVisible ] = useState(false); 
 
     const inputRef = useRef(null); // Ref for the input field
@@ -38,6 +38,7 @@ const Content = () => {
         setSearchTerm(e.target.value);
     };
 
+
     const filteredTrendingMovies = trendingData?.results?.filter((movie) =>
         movie.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -59,31 +60,28 @@ const Content = () => {
         setSuggestionVisible(true);
     }
 
-    useEffect(() => {
-        if (searchTerm.trim().length > 0) {
-            setSuggestionVisible(true);
-        } else {
-            setSuggestionVisible(false);
-        }
+    // useEffect(() => {
+    //     const handleClickOutside = (e) => {
+    //         if (
+    //             suggestionBoxRef.current && !suggestionBoxRef.current.contains(e.target) &&
+    //             inputRef.current && !inputRef.current.contains(e.target)
+    //         ) {
+    //             setSuggestionVisible(false);
+    //         }
+    //     };
     
-        const handleClickOutside = (e) => {
-            // Check if the click is outside both the input and suggestion box
-            if (
-                suggestionBoxRef.current && !suggestionBoxRef.current.contains(e.target) &&
-                inputRef.current && !inputRef.current.contains(e.target)
-            ) {
-                setSuggestionVisible(false);
-            }
-        };
+    //     if (searchTerm.trim().length > 0) {
+    //         setSuggestionVisible(true);
+    //     } else {
+    //         setSuggestionVisible(false);
+    //     }
     
-        // Add event listener for clicking anywhere on the document
-        document.addEventListener('click', handleClickOutside);
+    //     document.addEventListener('click', handleClickOutside, true);
     
-        // Cleanup event listener when the component is unmounted or when dependencies change
-        return () => {
-            document.removeEventListener('click', handleClickOutside);
-        };
-    }, [searchTerm]);
+    //     return () => {
+    //         document.removeEventListener('click', handleClickOutside, true);
+    //     };
+    // }, [searchTerm]);
     
     
 
@@ -101,6 +99,7 @@ const Content = () => {
                     type="text"
                     value={searchTerm}
                     onChange={handleSearchChange}
+                    onFocus={() => setSuggestionVisible(true)}
                     className="w-full h-12 text-gray-500 bg-white placeholder:text-gray-400 px-10 ring-0 border-0 focus:outline-none cursor-text"
                     placeholder="Search for a movies,tvshows,person..."
                 />
@@ -108,7 +107,7 @@ const Content = () => {
 
             {/* suggestion box */}
             {isSuggestionVisible && (
-            <div ref={suggestionBoxRef} className="w-full h-82 z-50 bg-white top-0 border-gray-200 flex flex-col items-center">
+            <div ref={suggestionBoxRef} className="w-full h-82 z-20 bg-white top-0 border-gray-200 flex flex-col items-center">
                 <div className='w-full h-10 bg-gray-100 flex flex-row'>
                     <div className='flex flex-row items-center gap-2 ml-40'>
                         <FaArrowTrendUp className='text-2xl'/>
@@ -148,7 +147,7 @@ const Content = () => {
                         <motion.div
                             layout
                             transition={{ type: 'spring', stiffness: 600, damping: 100 }}
-                            className={`absolute top-0 left-0 w-32 h-9 rounded-3xl bg-blue-950 z-0  ${trendSelectedFilter === 'week' ? 'w-28 translate-x-[7rem]' : 'w-32 translate-x-0'}`}
+                            className={`absolute top-0 left-0 w-32 h-9.5 rounded-3xl bg-blue-950 z-0  ${trendSelectedFilter === 'week' ? 'w-28 translate-x-[7rem]' : 'w-32 translate-x-0'}`}
                         />
                         <div
                             className={`w-28 h-9 rounded-3xl flex items-center justify-center cursor-pointer z-10 transition-colors duration-300 ${trendSelectedFilter === 'today' ? 'text-white' : ' text-black'}`}
@@ -196,7 +195,7 @@ const Content = () => {
                 </div>
 
                 <div className="w-full h-80 flex flex-col items-center">
-                    <div className="w-[1240px] h-80 flex flex-row items-center overflow-x-auto whitespace-nowrap scroll-smooth gap-5">
+                    <div className="w-[1280px] h-80 flex flex-row items-center overflow-x-auto whitespace-nowrap scroll-smooth gap-5">
                         {filteredPopularMovies?.map((movie) => (
                             <div key={movie.id} className="w-45 h-80 flex flex-col items-center">
                                 <div className="w-45 h-90 shadow-gray-400 shadow-xl rounded-2xl overflow-hidden transition-all transform hover:scale-105 duration-300 ease-in-out">
@@ -230,7 +229,7 @@ const Content = () => {
                         <motion.div
                             layout
                             transition={{ type: 'spring', stiffness: 600, damping: 100 }}
-                            className={`absolute top-0 left-0 w-32 h-9 rounded-3xl bg-blue-950 z-0  ${freeWatchFilter === 'movie' ? 'w-28 translate-x-[7rem]' : 'w-32 translate-x-0'}`}
+                            className={`absolute top-0 left-0 w-32 h-9.5 rounded-3xl bg-blue-950 z-0  ${freeWatchFilter === 'movie' ? 'w-28 translate-x-[7rem]' : 'w-32 translate-x-0'}`}
                         />
                         <div
                             className={`w-28 h-9 rounded-3xl flex items-center justify-center cursor-pointer z-10 transition-colors duration-300 ${freeWatchFilter === 'tv' ? 'text-white' : ' text-black'}`}
@@ -248,7 +247,7 @@ const Content = () => {
                 </div>
 
                 <div className="w-full h-80 flex flex-col items-center">
-                    <div className="w-[1240px] h-80 flex flex-row items-center overflow-x-auto whitespace-nowrap scroll-smooth gap-5">
+                    <div className="w-[1280px] h-80 flex flex-row items-center overflow-x-auto whitespace-nowrap scroll-smooth gap-5">
                         {(freeWatchFilter === 'movie' ? filteredFreeMovies : filteredFreeTV)?.map((item) => (
                             <div key={item.id} className="w-45 h-80 flex flex-col items-center">
                                 <div className="w-45 h-90 shadow-gray-400 shadow-xl rounded-2xl overflow-hidden transition-all transform hover:scale-105 duration-300 ease-in-out">
