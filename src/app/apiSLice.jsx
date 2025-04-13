@@ -59,9 +59,20 @@ export const tmdb = createApi({
         }),
         getPersonDetail: builder.query({
             query: (personId) => `person/${personId}?api_key=${import.meta.env.VITE_REACT_API_KEY}`
-        })
+        }),
+        getMovieDetail: builder.query({
+            query: (movieId) => `movie/${movieId}?api_key=${import.meta.env.VITE_REACT_API_KEY}`
+        }),
+        getTvShowDetail: builder.query({
+            query: (tvShowId) => `tv/${tvShowId}?api_key=${import.meta.env.VITE_REACT_API_KEY}`
+        }),
+        getFilteredNowPlayingMovie: builder.query({
+            query: ({ page = 1, language = 'en-US', region = 'US' }) => 
+              `/movie/now_playing?page=${page}&language=${language}&region=${region}`
+          }),
+          
     })
 })
 
-export const { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery, useGetPopularMoviesPagesQuery, useGetPopularTvShowsQuery, useGetFilteredMoviesQuery, useGetFilteredTvShowQuery, useGetPopularPeopleQuery, useGetPersonDetailQuery } = tmdb;
+export const { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery, useGetPopularMoviesPagesQuery, useGetPopularTvShowsQuery, useGetFilteredMoviesQuery, useGetFilteredTvShowQuery, useGetPopularPeopleQuery, useGetPersonDetailQuery, useGetMovieDetailQuery, useGetTvShowDetailQuery } = tmdb;
 

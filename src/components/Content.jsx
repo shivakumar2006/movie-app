@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { FaSearch } from "react-icons/fa";
 import { PuffLoader } from 'react-spinners';
 import { FaArrowTrendUp } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 import { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery } from '../app/apiSLice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
@@ -14,6 +15,7 @@ const Content = () => {
     const [freeWatchFilter, setFreeWatchFilter] = useState('tv'); // 'movie' or 'tv'
     const [ page ] = useState(2);
     const [ isSuggestionVisible, setSuggestionVisible ] = useState(false); 
+    const Navigate = useNavigate();
 
     const inputRef = useRef(null); // Ref for the input field
     const suggestionBoxRef = useRef(null);
@@ -90,6 +92,14 @@ const Content = () => {
     console.log("freemoviedata: ", freeMoviesData);
     console.log("freeTvShowsData: ", freeTvShowsData);
 
+    const handleClick = (mediaType, id) => {
+        console.log("Clicked item:", { mediaType, id });
+        if(mediaType === "movie") {
+            Navigate(`/movie/${id}`)
+        }else {
+            Navigate(`/tv/${id}`)
+        }
+    }
 
     return (
         <div className="w-screen flex flex-col">
@@ -174,6 +184,7 @@ const Content = () => {
                                         alt={movie.title}
                                         className="w-full h-full object-cover cursor-pointer"
                                         effect="blur"
+                                        onClick={() => Navigate(`/movie/${movie.id}`)}
                                     />
                                 </div>
                                 <div className="w-full h-20 flex flex-col items-center justify-center text-center">
@@ -204,6 +215,7 @@ const Content = () => {
                                         alt={movie.title}
                                         className="w-full h-full object-cover cursor-pointer"
                                         effect="blur"
+                                        onClick={() => Navigate(`/movie/${movie.id}`)}
                                     />
                                 </div>
                                 <div className="w-full h-20 flex flex-col items-center justify-center text-center">
@@ -256,6 +268,7 @@ const Content = () => {
                                         alt={item.title || item.name}
                                         className="w-full h-full object-cover cursor-pointer"
                                         effect="blur"
+                                        onClick={() => handleClick(freeWatchFilter, item.id)}
                                     />
                                 </div>
                                 <div className="w-full h-20 flex flex-col items-center justify-center text-center">
