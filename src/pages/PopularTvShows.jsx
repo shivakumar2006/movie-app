@@ -73,7 +73,7 @@ const PopularMovies = () => {
                     <select
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value)}
-                      className='p-2 border rounded shadow-xl w-70'
+                      className='p-2 border rounded shadow-xl w-70 mx-5'
                     >
                       <option value="popularity.desc">Popularity Descending</option>
                       <option value="popularity.asc">Popularity Ascending</option>

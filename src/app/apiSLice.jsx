@@ -53,10 +53,15 @@ export const tmdb = createApi({
 
                 return `/discover/tv${queryParams}`;
             }
+        }),
+        getPopularPeople: builder.query({
+            query: (page = 1) => `person/popular?api_key=${import.meta.env.VITE_REACT_API_KEY}&page=${page}`
+        }),
+        getPersonDetail: builder.query({
+            query: (personId) => `person/${personId}?api_key=${import.meta.env.VITE_REACT_API_KEY}`
         })
-          
     })
 })
 
-export const { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery, useGetPopularMoviesPagesQuery, useGetPopularTvShowsQuery, useGetFilteredMoviesQuery, useGetFilteredTvShowQuery } = tmdb;
+export const { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery, useGetPopularMoviesPagesQuery, useGetPopularTvShowsQuery, useGetFilteredMoviesQuery, useGetFilteredTvShowQuery, useGetPopularPeopleQuery, useGetPersonDetailQuery } = tmdb;
 
