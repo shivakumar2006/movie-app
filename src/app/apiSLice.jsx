@@ -35,7 +35,7 @@ export const tmdb = createApi({
               if (minRating) queryParams += `&vote_average.gte=${minRating}`;
               if (sortBy) queryParams += `&sort_by=${sortBy}`;
           
-              // 🔥 Append the API key here
+              // Append the API key here
               queryParams += `&api_key=${import.meta.env.VITE_REACT_API_KEY}`;
           
               return `/discover/movie${queryParams}`;
@@ -67,12 +67,36 @@ export const tmdb = createApi({
             query: (tvShowId) => `tv/${tvShowId}?api_key=${import.meta.env.VITE_REACT_API_KEY}`
         }),
         getFilteredNowPlayingMovie: builder.query({
-            query: ({ page = 1, language = 'en-US', region = 'US' }) => 
-              `/movie/now_playing?page=${page}&language=${language}&region=${region}`
+            query: ({ 
+              page = 1, 
+              language = 'en-US', 
+              region = 'US', 
+              sortBy = 'popularity.desc'  // how to sort the movies
+            }) => 
+              `/discover/movie?api_key=${import.meta.env.VITE_REACT_API_KEY}&page=${page}&language=${language}&region=${region}&sort_by=${sortBy}&with_release_type=3&with_watch_monetization_types=flatrate`
           }),
-          
+          getUpcomingMovies: builder.query({
+            query: ({ page = 1, language = 'en-US', sortBy = 'popularity.desc' }) =>
+              `/movie/upcoming?api_key=${import.meta.env.VITE_REACT_API_KEY}&page=${page}&language=${language}&sort_by=${sortBy}`,
+          }),
+          getTopRated: builder.query({
+            query: ({ page = 1, language = 'en-US', sortBy = 'popularity.desc' }) =>
+              `/movie/top_rated?api_key=${import.meta.env.VITE_REACT_API_KEY}&page=${page}&language=${language}&sort_by=${sortBy}`,
+          }),
+          getAiringTodayTvShows: builder.query({
+            query: ({ page = 1, language = 'en-US', sortBy = 'popularity.desc' }) => 
+                `/tv/airing_today?api_key=${import.meta.env.VITE_REACT_API_KEY}&page=${page}&language=${language}&sort_by=${sortBy}`,
+          }),
+          getOnTvShows: builder.query({
+            query: ({ page = 1, language = 'en-US', sortBy = 'popularity.desc' }) => 
+                `/tv/on_the_air?api_key=${import.meta.env.VITE_REACT_API_KEY}&page=${page}&language=${language}&sort_by=${sortBy}`,
+          }),
+          getTopRatedTvShows: builder.query({
+            query: ({ page = 1, language = 'en-US', sortBy = 'popularity.desc' }) => 
+                `/tv/top_rated?api_key=${import.meta.env.VITE_REACT_API_KEY}&page=${page}&language=${language}&sort_by=${sortBy}`,
+          }),
     })
 })
 
-export const { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery, useGetPopularMoviesPagesQuery, useGetPopularTvShowsQuery, useGetFilteredMoviesQuery, useGetFilteredTvShowQuery, useGetPopularPeopleQuery, useGetPersonDetailQuery, useGetMovieDetailQuery, useGetTvShowDetailQuery } = tmdb;
+export const { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery, useGetPopularMoviesPagesQuery, useGetPopularTvShowsQuery, useGetFilteredMoviesQuery, useGetFilteredTvShowQuery, useGetPopularPeopleQuery, useGetPersonDetailQuery, useGetMovieDetailQuery, useGetTvShowDetailQuery, useGetFilteredNowPlayingMovieQuery, useGetUpcomingMoviesQuery, useGetTopRatedQuery, useGetAiringTodayTvShowsQuery, useGetOnTvShowsQuery, useGetTopRatedTvShowsQuery } = tmdb;
 

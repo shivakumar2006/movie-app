@@ -1,10 +1,10 @@
 import React, { useState } from 'react'; 
-import { useGetFilteredMoviesQuery, useGetFilteredNowPlayingMovieQuery, useGetPopularMoviesPagesQuery } from '../app/apiSLice';
+import {useGetPopularMoviesPagesQuery, useGetTopRatedQuery, useGetTopRatedTvShowsQuery } from '../app/apiSLice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useNavigate } from 'react-router-dom';
 
-const NowPlaying = () => {
+const TopRatedTvShow = () => {
 
     const [ page, setPage ] = useState(1);
     const [ language, setLanguage ] = useState();
@@ -12,7 +12,7 @@ const NowPlaying = () => {
     const [ sortBy, setSortBy ] = useState();
     const Navigate = useNavigate();
     const { data, error, isLoading } = useGetPopularMoviesPagesQuery(page);
-    const { data: filteredData, isLoading: filteredLoading } = useGetFilteredNowPlayingMovieQuery({
+    const { data: filteredData, isLoading: filteredLoading } = useGetTopRatedTvShowsQuery({
         language,
         minRating,
         sortBy,
@@ -38,7 +38,7 @@ const NowPlaying = () => {
     return (
         <div className='w-screen min-h-screen flex flex-col'>
             <div className='w-full mt-10'>
-                <h1 className='text-2xl mx-15'>Now Playing</h1>
+                <h1 className='text-2xl mx-15'>Top Rated Tv Show</h1>
             </div>
 
             <div className='w-full flex flex-row justify-evenly items-start mt-10'>
@@ -99,12 +99,12 @@ const NowPlaying = () => {
                                         alt={movie.title}
                                         className="w-full h-full object-cover rounded-t-2xl cursor-pointer"
                                         effect="blur"
-                                        onClick={() => Navigate(`/movie/${movie.id}`)}
+                                        onClick={() => Navigate(`/tv/${movie.id}`)}
                                     />
                                 </div>
                                 <div className="text-center mt-3 text-xl font-medium px-1">
-                                    <p className='text-xl font-medium'>{movie.title}</p>
-                                    <p className='text-sm font-light'>{movie.release_date}</p>
+                                    <p className='text-xl font-medium'>{movie.name}</p>
+                                    <p className='text-sm font-light'>{movie.first_air_date}</p>
                                 </div>
                                 
                             </div>
@@ -132,4 +132,4 @@ const NowPlaying = () => {
     );
 }
 
-export default NowPlaying;
+export default TopRatedTvShow;

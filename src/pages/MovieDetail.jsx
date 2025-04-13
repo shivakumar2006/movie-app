@@ -95,8 +95,8 @@ const MovieDetail = () => {
     <div className='overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide flex gap-4'>
       {data?.production_companies?.map((movie) => (
         <div key={movie.id} className='w-80 h-80 ml-3 flex flex-row items-center justify-center'>
-          <div className='w-40 h-50 shadow-xl border-gray-300 border-1 flex flex-col'>
-            <div className='w-40 h-30 flex items-center'>
+          <div className='w-50 h-50 shadow-xl border-gray-300 border-1 flex flex-col'>
+            <div className='w-50 h-30 flex items-center'>
               <LazyLoadImage 
                 src={movie.logo_path 
                   ? `https://image.tmdb.org/t/p/w500${movie.logo_path}` 
@@ -106,7 +106,7 @@ const MovieDetail = () => {
                 className='w-full h-full rounded-t-2xl'
               />
             </div>
-            <div className='w-40 h-20 flex flex-col items-center justify-center text-center'>
+            <div className='w-50 h-20 flex flex-col items-center justify-center text-center'>
               <p>{movie.name}</p>
               <p>{movie.origin_country}</p>
             </div>

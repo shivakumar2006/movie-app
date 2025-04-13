@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useGetFilteredMoviesQuery, useGetPopularMoviesPagesQuery } from '../app/apiSLice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { useNavigate } from 'react-router-dom';
 
 const PopularMovies = () => {
 
@@ -9,6 +10,7 @@ const PopularMovies = () => {
     const [ language, setLanguage ] = useState();
     const [ minRating, setMinRating ] = useState();
     const [ sortBy, setSortBy ] = useState();
+    const Navigate = useNavigate();
     const { data, error, isLoading } = useGetPopularMoviesPagesQuery(page);
     const { data: filteredData, isLoading: filteredLoading } = useGetFilteredMoviesQuery({
         language,
@@ -97,6 +99,7 @@ const PopularMovies = () => {
                                         alt={movie.title}
                                         className="w-full h-full object-cover rounded-t-2xl cursor-pointer"
                                         effect="blur"
+                                        onClick={() => Navigate(`/movie/${movie.id}`)}
                                     />
                                 </div>
                                 <div className="text-center mt-3 text-xl font-medium px-1">

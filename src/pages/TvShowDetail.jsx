@@ -49,8 +49,8 @@ const TvShowDetail = () => {
               <p className='text-gray-400'>{data?.tagline}</p>
             </div>
 
-            <div className='w-full h-30 text-white flex flex-col mt-5 gap-3'>
-              <p className='text-2xl mt-5'>Overview</p>
+            <div className='w-full h-30 text-white flex flex-col mt-0 gap-3'>
+              <p className='text-2xl mt-0'>Overview</p>
               <p className='font-light'>{data?.overview}</p>
             </div>
 

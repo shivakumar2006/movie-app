@@ -82,9 +82,21 @@ const Navbar = () => {
                                 >
                                     Popular
                                 </p>
-                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'>Now playing</p>
-                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'>Upcoming</p>
-                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'>Top Rated</p>
+                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'
+                                    onClick={() => Navigate("/nowplaying")}
+                                >
+                                    Now playing
+                                </p>
+                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'
+                                    onClick={() => Navigate("/upcoming")}
+                                >
+                                    Upcoming
+                                </p>
+                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'
+                                    onClick={() => Navigate("/toprated")}
+                                >
+                                    Top Rated
+                                </p>
                             </div>
                         </div>
                     )}
@@ -109,9 +121,17 @@ const Navbar = () => {
                                 >
                                     Popular
                                 </p>
-                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'>Airing Today</p>
-                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'>On TV</p>
-                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'>Top Rated</p>
+                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'
+                                    onClick={() => Navigate("/airingtoday")}
+                                >Airing Today</p>
+                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'
+                                    onClick={() => Navigate("/ontv")}
+                                >On TV</p>
+                                <p className='w-40 h-8 text-sm hover:bg-gray-300 flex flex-col justify-center items-center cursor-pointer'
+                                    onClick={() => Navigate("/tv/toprated")}
+                                >
+                                    Top Rated
+                                </p>
                             </div>
                         </div>
                     )}
