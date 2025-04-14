@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { FaSearch } from "react-icons/fa";
 import { PuffLoader } from 'react-spinners';
-import { FaArrowTrendUp } from "react-icons/fa6";
+// import { FaArrowTrendUp } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery } from '../app/apiSLice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -59,15 +59,15 @@ const Content = () => {
     // };
 
 
-    const filteredTrendingMovies = trendingData?.results?.filter((movie) => {
-        const  title = movie.title || movie.name || "";
-        return title.toLowerCase().includes(searchTerm.toLowerCase())
-    });
+    // const filteredTrendingMovies = trendingData?.results?.filter((movie) => {
+    //     const  title = movie.title || movie.name || "";
+    //     return title.toLowerCase().includes(searchTerm.toLowerCase())
+    // });
 
-    const filteredPopularMovies = data?.results?.filter((movie) => {
-        const title = movie.title || movie.name || "";
-        return title.toLowerCase().includes(searchTerm.toLowerCase())
-    });
+    // const filteredPopularMovies = data?.results?.filter((movie) => {
+    //     const title = movie.title || movie.name || "";
+    //     return title.toLowerCase().includes(searchTerm.toLowerCase())
+    // });
 
     const filteredFreeMovies = freeMoviesData?.results?.filter((movie) => {
         const title = movie.title || movie.name || "";
@@ -187,7 +187,7 @@ const Content = () => {
 
                 <div className="w-full h-80 flex flex-col items-center">
                     <div className="w-[1280px] h-80 flex flex-row items-center overflow-x-auto whitespace-nowrap scroll-smooth gap-5">
-                        {filteredTrendingMovies?.map((movie) => (
+                        {trendingData?.results?.map((movie) => (
                             <div key={movie.id} className="w-45 h-80 flex flex-col items-center">
                                 <div className="w-45 h-90 shadow-gray-400 shadow-xl rounded-2xl overflow-hidden transition-all transform hover:scale-105 duration-300 ease-in-out">
                                     <LazyLoadImage
@@ -218,7 +218,7 @@ const Content = () => {
 
                 <div className="w-full h-80 flex flex-col items-center">
                     <div className="w-[1280px] h-80 flex flex-row items-center overflow-x-auto whitespace-nowrap scroll-smooth gap-5">
-                        {filteredPopularMovies?.map((movie) => (
+                        {data?.results?.map((movie) => (
                             <div key={movie.id} className="w-45 h-80 flex flex-col items-center">
                                 <div className="w-45 h-90 shadow-gray-400 shadow-xl rounded-2xl overflow-hidden transition-all transform hover:scale-105 duration-300 ease-in-out">
                                     <LazyLoadImage
@@ -271,7 +271,7 @@ const Content = () => {
 
                 <div className="w-full h-80 flex flex-col items-center">
                     <div className="w-[1280px] h-80 flex flex-row items-center overflow-x-auto whitespace-nowrap scroll-smooth gap-5">
-                        {(freeWatchFilter === 'movie' ? filteredFreeMovies : filteredFreeTV)?.map((item) => (
+                        {(freeWatchFilter === 'movie' ? freeMoviesData?.results : freeTvShowsData?.results)?.map((item) => (
                             <div key={item.id} className="w-45 h-80 flex flex-col items-center">
                                 <div className="w-45 h-90 shadow-gray-400 shadow-xl rounded-2xl overflow-hidden transition-all transform hover:scale-105 duration-300 ease-in-out">
                                     <LazyLoadImage
