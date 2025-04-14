@@ -14,11 +14,11 @@ const Content = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [freeWatchFilter, setFreeWatchFilter] = useState('tv'); // 'movie' or 'tv'
     const [ page ] = useState(2);
-    const [ isSuggestionVisible, setSuggestionVisible ] = useState(false); 
+    // const [ isSuggestionVisible, setSuggestionVisible ] = useState(false); 
     const Navigate = useNavigate();
 
     const inputRef = useRef(null); // Ref for the input field
-    const suggestionBoxRef = useRef(null);
+    // const suggestionBoxRef = useRef(null);
 
     const { data: trendingData, error: trendingError, isLoading: trendingLoading } = useGetTrendingMoviesQuery(
         trendSelectedFilter === 'today' ? 'day' : 'week'
@@ -37,29 +37,22 @@ const Content = () => {
     }
 
 
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (
-                suggestionBoxRef.current && !suggestionBoxRef.current.contains(e.target) &&
-                inputRef.current && !inputRef.current.contains(e.target)
-            ) {
-                setSuggestionVisible(false);
-            }
-        };
-
+    // useEffect(() => {
+    //     const handleClickOutside = (e) => {
+    //         if (
+    //             suggestionBoxRef.current && !suggestionBoxRef.current.contains(e.target) &&
+    //             inputRef.current && !inputRef.current.contains(e.target)
+    //         ) {
+    //             setSuggestionVisible(false);
+    //         }
+    //     };
     
-        // if (searchTerm.trim().length > 0) {
-        //     setSuggestionVisible(true);
-        // } else {
-        //     setSuggestionVisible(false);
-        // }
+    //     document.addEventListener('click', handleClickOutside, true);
     
-        document.addEventListener('click', handleClickOutside, true);
-    
-        return () => {
-            document.removeEventListener('click', handleClickOutside, true);
-        };
-    }, [searchTerm]);
+    //     return () => {
+    //         document.removeEventListener('click', handleClickOutside, true);
+    //     };
+    // }, [searchTerm]);
 
     // const handleSearchChange = (e) => {
     //     setSearchTerm(e.target.value);
@@ -86,12 +79,12 @@ const Content = () => {
         return title.toLowerCase().includes(searchTerm.toLowerCase())
     });
 
-    const handleTrendClick = (titleOrName) => {
-        if (typeof titleOrName === "string") {
-            setSearchTerm(titleOrName)
-            setSuggestionVisible(true);
-        }
-    }
+    // const handleTrendClick = (titleOrName) => {
+    //     if (typeof titleOrName === "string") {
+    //         setSearchTerm(titleOrName)
+    //         setSuggestionVisible(true);
+    //     }
+    // }
 
     // useEffect(() => {
     //     setSuggestionVisible(searchTerm.trim().length > 0);
@@ -128,7 +121,7 @@ const Content = () => {
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    onFocus={() => setSuggestionVisible(true)}
+                    // onFocus={() => setSuggestionVisible(true)}
                     onKeyDown={handleKeyDown}
                     className="w-full h-12 text-gray-500 bg-white placeholder:text-gray-400 px-10 ring-0 border-0 focus:outline-none cursor-text"
                     placeholder="Search for a movies,tvshows,person..."
@@ -136,8 +129,7 @@ const Content = () => {
             </div>
 
             {/* suggestion box */}
-            {isSuggestionVisible && (
-            <div ref={suggestionBoxRef} className="w-full h-82 z-20 bg-white top-0 border-gray-200 flex flex-col items-center">
+            {/* <div className="w-full h-82 z-20 bg-white top-0 border-gray-200 flex flex-col items-center">
                 <div className='w-full h-10 bg-gray-100 flex flex-row'>
                     <div className='flex flex-row items-center gap-2 ml-40'>
                         <FaArrowTrendUp className='text-2xl'/>
@@ -148,15 +140,14 @@ const Content = () => {
                 {trendingData?.results.slice(0, 10)?.map((movie) => (
                 <div key={movie.id} className='w-full h-8 border-gray-200 border hover:bg-gray-200'>
                     <div className='flex flex-row items-center gap-6 ml-40 cursor-pointer'
-                        onClick={() => handleTrendClick(movie.title || movie.name || "")}
+                        // onClick={() => handleTrendClick(movie.title || movie.name || "")}
                     >
                         <FaSearch className="text-xs my-2" />
                         <p className='font-light text-sm'>{movie.title || movie.name}</p>
                     </div>
                 </div>
                 ))}
-            </div>
-            )}
+            </div> */}
 
             <div className="w-full h-80 border-2 flex flex-col justify-center items-center gap-10" style={{ background: "linear-gradient(90deg, rgba(1,41,73,1) 0%, rgba(1,40,62,1) 35%, rgba(9,59,88,1) 55%, rgba(2,71,103,1) 100%)" }}>
                 <div className="w-[1200px] h-30">
