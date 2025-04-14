@@ -95,8 +95,17 @@ export const tmdb = createApi({
             query: ({ page = 1, language = 'en-US', sortBy = 'popularity.desc' }) => 
                 `/tv/top_rated?api_key=${import.meta.env.VITE_REACT_API_KEY}&page=${page}&language=${language}&sort_by=${sortBy}`,
           }),
+          getSearchedMovies: builder.query({
+            query: (searchTerm) =>
+              `/search/movie?api_key=${import.meta.env.VITE_REACT_API_KEY}&query=${searchTerm}&include_adult=false&language=en-US&page=1`,
+          }),
+          getSearchedTVShows: builder.query({
+            query: (searchTerm) =>
+              `/search/tv?api_key=${import.meta.env.VITE_REACT_API_KEY}&query=${searchTerm}&include_adult=false&language=en-US&page=1`,
+          }),
+          
     })
 })
 
-export const { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery, useGetPopularMoviesPagesQuery, useGetPopularTvShowsQuery, useGetFilteredMoviesQuery, useGetFilteredTvShowQuery, useGetPopularPeopleQuery, useGetPersonDetailQuery, useGetMovieDetailQuery, useGetTvShowDetailQuery, useGetFilteredNowPlayingMovieQuery, useGetUpcomingMoviesQuery, useGetTopRatedQuery, useGetAiringTodayTvShowsQuery, useGetOnTvShowsQuery, useGetTopRatedTvShowsQuery } = tmdb;
+export const { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery, useGetPopularMoviesPagesQuery, useGetPopularTvShowsQuery, useGetFilteredMoviesQuery, useGetFilteredTvShowQuery, useGetPopularPeopleQuery, useGetPersonDetailQuery, useGetMovieDetailQuery, useGetTvShowDetailQuery, useGetFilteredNowPlayingMovieQuery, useGetUpcomingMoviesQuery, useGetTopRatedQuery, useGetAiringTodayTvShowsQuery, useGetOnTvShowsQuery, useGetTopRatedTvShowsQuery, useGetSearchedMoviesQuery, useGetSearchedTVShowsQuery } = tmdb;
 

@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { FaSearch } from "react-icons/fa";
 import { PuffLoader } from 'react-spinners';
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
-import { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery } from '../app/apiSLice';
+import { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery } from '../app/apiSLice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -36,55 +36,66 @@ const Content = () => {
         return <div>Error fetching data</div>;
     }
 
-    const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
-    };
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (
+                suggestionBoxRef.current && !suggestionBoxRef.current.contains(e.target) &&
+                inputRef.current && !inputRef.current.contains(e.target)
+            ) {
+                setSuggestionVisible(false);
+            }
+        };
+
+    
+        // if (searchTerm.trim().length > 0) {
+        //     setSuggestionVisible(true);
+        // } else {
+        //     setSuggestionVisible(false);
+        // }
+    
+        document.addEventListener('click', handleClickOutside, true);
+    
+        return () => {
+            document.removeEventListener('click', handleClickOutside, true);
+        };
+    }, [searchTerm]);
+
+    // const handleSearchChange = (e) => {
+    //     setSearchTerm(e.target.value);
+    // };
 
 
-    const filteredTrendingMovies = trendingData?.results?.filter((movie) =>
-        movie.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredTrendingMovies = trendingData?.results?.filter((movie) => {
+        const  title = movie.title || movie.name || "";
+        return title.toLowerCase().includes(searchTerm.toLowerCase())
+    });
 
-    const filteredPopularMovies = data?.results?.filter((movie) =>
-        movie.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredPopularMovies = data?.results?.filter((movie) => {
+        const title = movie.title || movie.name || "";
+        return title.toLowerCase().includes(searchTerm.toLowerCase())
+    });
 
-    const filteredFreeMovies = freeMoviesData?.results?.filter((movie) =>
-        movie.title?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredFreeMovies = freeMoviesData?.results?.filter((movie) => {
+        const title = movie.title || movie.name || "";
+        return title.toLowerCase().includes(searchTerm.toLowerCase())
+    });
 
-    const filteredFreeTV = freeTvShowsData?.results?.filter((tv) =>
-        tv.name?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredFreeTV = freeTvShowsData?.results?.filter((tv) => {
+        const title = tv.name || tv.title || "";
+        return title.toLowerCase().includes(searchTerm.toLowerCase())
+    });
 
-    const handleTrendClick = (title) => {
-        setSearchTerm(title)
-        setSuggestionVisible(true);
+    const handleTrendClick = (titleOrName) => {
+        if (typeof titleOrName === "string") {
+            setSearchTerm(titleOrName)
+            setSuggestionVisible(true);
+        }
     }
 
     // useEffect(() => {
-    //     const handleClickOutside = (e) => {
-    //         if (
-    //             suggestionBoxRef.current && !suggestionBoxRef.current.contains(e.target) &&
-    //             inputRef.current && !inputRef.current.contains(e.target)
-    //         ) {
-    //             setSuggestionVisible(false);
-    //         }
-    //     };
-    
-    //     if (searchTerm.trim().length > 0) {
-    //         setSuggestionVisible(true);
-    //     } else {
-    //         setSuggestionVisible(false);
-    //     }
-    
-    //     document.addEventListener('click', handleClickOutside, true);
-    
-    //     return () => {
-    //         document.removeEventListener('click', handleClickOutside, true);
-    //     };
-    // }, [searchTerm]);
-    
+    //     setSuggestionVisible(searchTerm.trim().length > 0);
+    // }, [searchTerm])
     
 
 
@@ -101,6 +112,14 @@ const Content = () => {
         }
     }
 
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter" && searchTerm.trim()) {
+            Navigate(`/search/${encodeURIComponent(searchTerm.trim())}`);
+            setSearchTerm(""); // optional: reset search box
+        }
+    };
+
     return (
         <div className="w-screen flex flex-col">
             <div className="w-full h-13 sticky z-20 bg-white top-0 border px-20 flex flex-row items-center">
@@ -108,8 +127,9 @@ const Content = () => {
                 <input
                     type="text"
                     value={searchTerm}
-                    onChange={handleSearchChange}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     onFocus={() => setSuggestionVisible(true)}
+                    onKeyDown={handleKeyDown}
                     className="w-full h-12 text-gray-500 bg-white placeholder:text-gray-400 px-10 ring-0 border-0 focus:outline-none cursor-text"
                     placeholder="Search for a movies,tvshows,person..."
                 />
@@ -128,10 +148,10 @@ const Content = () => {
                 {trendingData?.results.slice(0, 10)?.map((movie) => (
                 <div key={movie.id} className='w-full h-8 border-gray-200 border hover:bg-gray-200'>
                     <div className='flex flex-row items-center gap-6 ml-40 cursor-pointer'
-                        onClick={() => handleTrendClick(movie.title)}
+                        onClick={() => handleTrendClick(movie.title || movie.name || "")}
                     >
                         <FaSearch className="text-xs my-2" />
-                        <p className='font-light text-sm'>{movie.title}</p>
+                        <p className='font-light text-sm'>{movie.title || movie.name}</p>
                     </div>
                 </div>
                 ))}

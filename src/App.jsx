@@ -15,6 +15,7 @@ import TopRated from './pages/TopRated';
 import AiringToday from './pages/AiringToday';
 import OnTv from './pages/OnTv';
 import TopRatedTvShow from './pages/TopRatedTvShow';
+import Search from './pages/Search';
 import { Routes, Route } from 'react-router-dom';
 
 const App = () => {
@@ -34,7 +35,7 @@ const App = () => {
             <Route path='/toprated' element={<TopRated />}/>
             <Route path='/airingtoday' element={<AiringToday />}/>
             <Route path='/ontv' element={<OnTv />}/>
-            <Route path='/tv/toprated' element={<TopRatedTvShow />}/>
+            <Route path='/search/:query' element={<Search />}/>
         </Routes>
         <Footer />
     </>
