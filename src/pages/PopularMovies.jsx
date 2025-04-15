@@ -3,6 +3,7 @@ import { useGetFilteredMoviesQuery, useGetPopularMoviesPagesQuery } from '../app
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useNavigate } from 'react-router-dom';
+import { PuffLoader } from 'react-spinners';
 
 const PopularMovies = () => {
 
@@ -18,6 +19,10 @@ const PopularMovies = () => {
         sortBy,
         page
 })
+
+    if(filteredLoading) {
+        return <div className='w-screen h-screen text-5xl flex justify-center items-center'><PuffLoader /></div>;
+    }
 
     const totalPages = data?.total_pages || 1;
 

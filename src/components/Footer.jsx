@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GrLinkedin } from "react-icons/gr";
 import { BsGithub } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { SiThemoviedatabase } from "react-icons/si";
+import { useDispatch, useSelector } from 'react-redux';
 
 const Footer = () => {
+
+    const user = useSelector((state) => state.auth.user);
+    const dispatch = useDispatch();
+    const userMeta = user?.user_metadata || {};
+    const displayName = userMeta.name || userMeta.full_name || userMeta.user_name || "No name found";
+
+    useEffect(() => {
+              const fetchUser = async () => {
+                  if(!user) {
+                      const { data: { user }, error } = await supabase.auth.getUser();
+                      if(user) {
+                          dispatch(setUser(user));
+                      } 
+                  }
+              }
+      
+              fetchUser();
+          }, [dispatch, user]);
 
   return (
     <div className='w-full h-80 '
@@ -32,7 +51,7 @@ const Footer = () => {
                 <SiThemoviedatabase />
             </div>
             <div className='w-80 h-12 bg-white rounded-2xl flex flex-row items-center justify-center cursor-pointer'>
-                <p className='text-2xl text-blue-950 font-bold'>Hii</p>
+                <p className='text-2xl text-blue-950 font-bold'>Hii {displayName}!</p>
             </div>
             <div className='w-50 h-30 mx-20 flex flex-col justify-center items-center'>
                 <p className='text-white font-bold text-2xl'>TMDB API</p>

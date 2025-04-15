@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 const PopularPeople = () => {
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useGetPopularPeopleQuery(page);
+//   const { data: moviesData } = useGetMovieVideosQuery();
+
   const Navigate = useNavigate();
 
   console.log("popularPeople : ", data);
@@ -40,7 +42,9 @@ const PopularPeople = () => {
               />
             </div>
             <div className='text-center p-3 mt-5'>
-              <p className='text-lg font-semibold'>{item.name}</p>
+              <p className='people'
+                style={{ fontSize: "large", fontWeight: "bold"}}
+              >{item.name}</p>
               {item.known_for_department && (
                 <p className='text-sm text-gray-500'>{item.known_for_department}</p>
               )}

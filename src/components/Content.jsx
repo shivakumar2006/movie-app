@@ -115,8 +115,10 @@ const Content = () => {
 
     return (
         <div className="w-screen flex flex-col">
-            <div className="w-full h-13 sticky z-20 bg-white top-0 border px-20 flex flex-row items-center">
-                <FaSearch className="ml-[-10px]" />
+            <div className="w-full h-13 sticky z-20 bg-white top-0 px-20 flex flex-row items-center">
+                <FaSearch className="search" 
+                    style={{ marginLeft: "-10px"}}
+                />
                 <input
                     type="text"
                     value={searchTerm}
@@ -149,7 +151,7 @@ const Content = () => {
                 ))}
             </div> */}
 
-            <div className="w-full h-80 border-2 flex flex-col justify-center items-center gap-10" style={{ background: "linear-gradient(90deg, rgba(1,41,73,1) 0%, rgba(1,40,62,1) 35%, rgba(9,59,88,1) 55%, rgba(2,71,103,1) 100%)" }}>
+            <div className="w-full h-80 flex flex-col justify-center items-center gap-10" style={{ background: "linear-gradient(90deg, rgba(1,41,73,1) 0%, rgba(1,40,62,1) 35%, rgba(9,59,88,1) 55%, rgba(2,71,103,1) 100%)" }}>
                 <div className="w-[1200px] h-30">
                     <div className="w-[1000px] h-12 mt-8 flex flex-col">
                         <h1 className="text-white font-bold text-5xl">WELCOME</h1>
@@ -164,7 +166,7 @@ const Content = () => {
                     <div className="mr-10">
                         <h1>Trending</h1>
                     </div>
-                    <div className="w-60 h-10 border-1 relative border-gray-300 rounded-3xl mr-[-300px] flex flex-row items-center">
+                    <div className="w-61 h-10 border-1 relative border-gray-300 rounded-3xl mr-[-300px] flex flex-row items-center">
                         <motion.div
                             layout
                             transition={{ type: 'spring', stiffness: 600, damping: 100 }}
@@ -174,13 +176,17 @@ const Content = () => {
                             className={`w-28 h-9 rounded-3xl flex items-center justify-center cursor-pointer z-10 transition-colors duration-300 ${trendSelectedFilter === 'today' ? 'text-white' : ' text-black'}`}
                             onClick={() => setTrendSelectedFilter('today')}
                         >
-                            <p className="text-sm text-center">Today</p>
+                            <p className="filter"
+                                style={{ fontSize: "small", textAlign: "center"}}
+                            >Today</p>
                         </div>
                         <div
                             className={`w-32 h-9 rounded-3xl flex items-center justify-center cursor-pointer z-10 transition-colors duration-300 ${trendSelectedFilter === 'week' ? 'text-white' : ' text-black'}`}
                             onClick={() => setTrendSelectedFilter('week')}
                         >
-                            <p className="text-sm">This Week</p>
+                            <p className="filter"
+                                style={{ fontSize: "small"}}
+                            >This Week</p>
                         </div>
                     </div>
                 </div>
@@ -189,7 +195,7 @@ const Content = () => {
                     <div className="w-[1280px] h-80 flex flex-row items-center overflow-x-auto whitespace-nowrap scroll-smooth gap-5">
                         {trendingData?.results?.map((movie) => (
                             <div key={movie.id} className="w-45 h-80 flex flex-col items-center">
-                                <div className="w-45 h-90 shadow-gray-400 shadow-xl rounded-2xl overflow-hidden transition-all transform hover:scale-105 duration-300 ease-in-out">
+                                <div className="w-45 h-90 shadow-2xl rounded-2xl overflow-hidden transition-all transform hover:scale-105 duration-300 ease-in-out">
                                     <LazyLoadImage
                                         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                                         alt={movie.title}
@@ -199,8 +205,8 @@ const Content = () => {
                                     />
                                 </div>
                                 <div className="w-full h-20 flex flex-col items-center justify-center text-center">
-                                    <p className="w-50 truncate font-bold text-md mr-5 break-words">{movie.title}</p>
-                                    <p className="font-light mr-5">{movie.release_date}</p>
+                                    <p className="w-50 truncate font-bold text-md ml-5 break-words">{movie.title}</p>
+                                    <p className="font-light ml-5">{movie.release_date}</p>
                                 </div>
                             </div>
                         ))}
@@ -220,7 +226,7 @@ const Content = () => {
                     <div className="w-[1280px] h-80 flex flex-row items-center overflow-x-auto whitespace-nowrap scroll-smooth gap-5">
                         {data?.results?.map((movie) => (
                             <div key={movie.id} className="w-45 h-80 flex flex-col items-center">
-                                <div className="w-45 h-90 shadow-gray-400 shadow-xl rounded-2xl overflow-hidden transition-all transform hover:scale-105 duration-300 ease-in-out">
+                                <div className="w-45 h-90 shadow-2xl rounded-2xl overflow-hidden transition-all transform hover:scale-105 duration-300 ease-in-out">
                                     <LazyLoadImage
                                         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                                         alt={movie.title}
@@ -248,7 +254,7 @@ const Content = () => {
                         <h1>Free Watch</h1>
                     </div>
                 </div>
-                <div className="w-60 h-10 border-1 relative border-gray-300 rounded-3xl mr-0 flex flex-row items-center">
+                <div className="w-61 h-10 border-1 relative border-gray-300 rounded-3xl mr-0 flex flex-row items-center">
                         <motion.div
                             layout
                             transition={{ type: 'spring', stiffness: 600, damping: 100 }}
@@ -258,13 +264,17 @@ const Content = () => {
                             className={`w-28 h-9 rounded-3xl flex items-center justify-center cursor-pointer z-10 transition-colors duration-300 ${freeWatchFilter === 'tv' ? 'text-white' : ' text-black'}`}
                             onClick={() => setFreeWatchFilter('tv')}
                         >
-                            <p className="text-sm text-center">TV</p>
+                            <p className="filter"
+                                style={{ fontSize: "small", textAlign: "center"}}
+                            >TV</p>
                         </div>
                         <div
                             className={`w-32 h-9 rounded-3xl flex items-center justify-center cursor-pointer z-10 transition-colors duration-300 ${freeWatchFilter === 'movie' ? 'text-white' : ' text-black'}`}
                             onClick={() => setFreeWatchFilter('movie')}
                         >
-                            <p className="text-sm">Movies</p>
+                            <p className="filter"
+                                style={{ fontSize: "small" }}
+                            >Movies</p>
                         </div>
                     </div>
                 </div>
@@ -273,7 +283,7 @@ const Content = () => {
                     <div className="w-[1280px] h-80 flex flex-row items-center overflow-x-auto whitespace-nowrap scroll-smooth gap-5">
                         {(freeWatchFilter === 'movie' ? freeMoviesData?.results : freeTvShowsData?.results)?.map((item) => (
                             <div key={item.id} className="w-45 h-80 flex flex-col items-center">
-                                <div className="w-45 h-90 shadow-gray-400 shadow-xl rounded-2xl overflow-hidden transition-all transform hover:scale-105 duration-300 ease-in-out">
+                                <div className="w-45 h-90 shadow-2xl rounded-2xl overflow-hidden transition-all transform hover:scale-105 duration-300 ease-in-out">
                                     <LazyLoadImage
                                         src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                                         alt={item.title || item.name}

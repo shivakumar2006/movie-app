@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React, { useEffect } from 'react'; 
 import "./App.css";
 import Navbar from './components/Navbar';
 import Content from './components/Content';
@@ -16,14 +16,45 @@ import AiringToday from './pages/AiringToday';
 import OnTv from './pages/OnTv';
 import TopRatedTvShow from './pages/TopRatedTvShow';
 import Search from './pages/Search';
+import Authentication from './pages/Authentication';
 import { Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import Profile from './pages/Profile';
+import { supabase } from './supabase';
 
 const App = () => {
+
+    const theme = useSelector((state) => state.theme.theme)
+
+    const navigate = useNavigate();
+    const location = useLocation(); 
+    
+    // check if the user is authenticate and redirect to the content page...
+    useEffect(() => {
+        const checkSession = async () => {
+            const { data } = await supabase.auth.getSession();
+            const session = data?.session; // use optional changing to prevent errors
+            if(session && location.pathname === "/") {
+                navigate("/movie");
+            }
+        }
+            checkSession();
+    }, [navigate, location])
+
+    const hideLayout = location.pathname === "/"; // authentication page
+
+    useEffect(() => {
+        document.body.className = theme;
+    }, [theme])
+
   return (
     <>
-        <Navbar />
+        { !hideLayout && <Navbar /> }
         <Routes>
-            <Route path='/' element={<Content/>}/>
+            <Route path='/' element={<Authentication />}/>
+            <Route path='/movie' element={<Content/>}/>
             <Route path='/popular/movies' element={<PopularMovies />} />
             <Route path="/popular/tv" element={<PopularTvShows />} />
             <Route path='/popularpeople' element={<PopularPeople />}/>
@@ -36,8 +67,10 @@ const App = () => {
             <Route path='/airingtoday' element={<AiringToday />}/>
             <Route path='/ontv' element={<OnTv />}/>
             <Route path='/search/:query' element={<Search />}/>
+            <Route path='/tv/toprated' element={<TopRatedTvShow />}/>
+            <Route path='/profile' element={<Profile />}/>
         </Routes>
-        <Footer />
+        { !hideLayout && <Footer /> }
     </>
   );
 }

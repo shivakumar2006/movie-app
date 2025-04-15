@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { SiThemoviedatabase } from "react-icons/si";
-import { FaSearch } from "react-icons/fa";
+// import { FaSearch } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
 import { BsMoonStarsFill } from "react-icons/bs";
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from '../app/ThemeSlice';
 import { useNavigate } from 'react-router-dom';
+import { setUser } from '../features/authSlice';
+import { supabase } from '../supabase';
 
 
 const Navbar = () => {
@@ -16,6 +18,7 @@ const Navbar = () => {
     const [ isTvVisible, setIsTvVisible ] = useState(false);
     const [ isPopularVisible, setIsPopularVisible ] = useState(false);
     const theme = useSelector((state) => state.theme.theme);
+    const user = useSelector((state) => state.auth.user);
     const dispatch = useDispatch();
     const Navigate = useNavigate();
 
@@ -44,6 +47,26 @@ const Navbar = () => {
         document.body.className = theme; // Adds 'light' or 'dark' to body
       }, [theme]);
 
+  
+      useEffect(() => {
+          const fetchUser = async () => {
+              if(!user) {
+                  const { data: { user }, error } = await supabase.auth.getUser();
+                  if(user) {
+                      dispatch(setUser(user));
+                  } 
+              }
+          }
+  
+          fetchUser();
+      }, [dispatch, user]);
+  
+      const profilePicture = user?.user_metadata?.avatar_url || user?.user_metadata?.picture;
+  
+      const handleClick = () => {
+          Navigate("/profile");
+      }
+
     return (
         <motion.div
             className="flex justify-center items-center"
@@ -57,7 +80,7 @@ const Navbar = () => {
                 }}
             >
                 <div className='w-50 h-15 mx-10 text-6xl text-white flex justify-center items-center cursor-pointer'
-                    onClick={() => Navigate("/")}
+                    onClick={() => Navigate("/movie")}
                 >
                 {/* M<RiMovie2AiFill />VIES */}
                 <SiThemoviedatabase />
@@ -168,12 +191,25 @@ const Navbar = () => {
                             {theme === "dark" ? <FiSun /> : <BsMoonStarsFill />}
                         </button>
                     </div>
-                    <div className='text-blue-400 text-2xl cursor-pointer'>
+                    {/* <div className='text-blue-400 text-2xl cursor-pointer'>
                         <FaSearch />
-                    </div>
-                    <div className='w-13 h-13 rounded-full border-white border-2 cursor-pointer'>
-
-                    </div>
+                    </div> */}
+                    {/* Profile Picture Section */}
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-4 border-2 border-white rounded-full shadow-white hover:shadow-md">
+                    {user && profilePicture ? (
+                        <img 
+                            src={profilePicture} 
+                            alt="Profile" 
+                            className="w-full h-full rounded-full cursor-pointer"
+                            referrerPolicy="no-referrer"
+                            onClick={handleClick}
+                        />
+                    ) : (
+                        <div className="w-full h-full bg-gray-500 rounded-full flex justify-center items-center">
+                            <span className="text-white">No Image</span>
+                        </div>
+                    )}
+                </div>
                 </div>
             </div>
         </motion.div>

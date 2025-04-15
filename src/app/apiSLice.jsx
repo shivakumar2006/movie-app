@@ -67,12 +67,7 @@ export const tmdb = createApi({
             query: (tvShowId) => `tv/${tvShowId}?api_key=${import.meta.env.VITE_REACT_API_KEY}`
         }),
         getFilteredNowPlayingMovie: builder.query({
-            query: ({ 
-              page = 1, 
-              language = 'en-US', 
-              region = 'US', 
-              sortBy = 'popularity.desc'  // how to sort the movies
-            }) => 
+            query: ({ page = 1, language = 'en-US', region = 'US',sortBy = 'popularity.desc' }) => 
               `/discover/movie?api_key=${import.meta.env.VITE_REACT_API_KEY}&page=${page}&language=${language}&region=${region}&sort_by=${sortBy}&with_release_type=3&with_watch_monetization_types=flatrate`
           }),
           getUpcomingMovies: builder.query({
@@ -103,9 +98,13 @@ export const tmdb = createApi({
             query: (searchTerm) =>
               `/search/tv?api_key=${import.meta.env.VITE_REACT_API_KEY}&query=${searchTerm}&include_adult=false&language=en-US&page=1`,
           }),
+          getMovieVideos: builder.query({
+            query: (movieId) =>
+              `movie/${movieId}/videos?api_key=${import.meta.env.VITE_TMDB_API_KEY}`,
+          }),
           
     })
 })
 
-export const { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery, useGetPopularMoviesPagesQuery, useGetPopularTvShowsQuery, useGetFilteredMoviesQuery, useGetFilteredTvShowQuery, useGetPopularPeopleQuery, useGetPersonDetailQuery, useGetMovieDetailQuery, useGetTvShowDetailQuery, useGetFilteredNowPlayingMovieQuery, useGetUpcomingMoviesQuery, useGetTopRatedQuery, useGetAiringTodayTvShowsQuery, useGetOnTvShowsQuery, useGetTopRatedTvShowsQuery, useGetSearchedMoviesQuery, useGetSearchedTVShowsQuery } = tmdb;
+export const { useGetPopularMoviesQuery, useGetTrendingMoviesQuery, useGetMovieTrailersQuery, useGetFreeMoviesQuery, useGetFreeTVShowsQuery, useGetPopularMoviesPagesQuery, useGetPopularTvShowsQuery, useGetFilteredMoviesQuery, useGetFilteredTvShowQuery, useGetPopularPeopleQuery, useGetPersonDetailQuery, useGetMovieDetailQuery, useGetTvShowDetailQuery, useGetFilteredNowPlayingMovieQuery, useGetUpcomingMoviesQuery, useGetTopRatedQuery, useGetAiringTodayTvShowsQuery, useGetOnTvShowsQuery, useGetTopRatedTvShowsQuery, useGetSearchedMoviesQuery, useGetSearchedTVShowsQuery, useGetMovieVideosQuery } = tmdb;
 
