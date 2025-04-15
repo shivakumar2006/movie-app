@@ -24,5 +24,13 @@ body.light {
     color: black;  /* Ensure names are visible in light mode */
   }
 
+  body.dark .name {
+    color: white;
+  }
+
+  body.dark .button {
+    color: white;
+  }
+
   
   

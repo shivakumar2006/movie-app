@@ -17,7 +17,7 @@ const UpComing = () => {
         minRating,
         sortBy,
         page
-})
+    })
 
     const totalPages = data?.total_pages || 1;
 

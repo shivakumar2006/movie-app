@@ -4,6 +4,7 @@ import { BsGithub } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { SiThemoviedatabase } from "react-icons/si";
 import { useDispatch, useSelector } from 'react-redux';
+import { supabase } from '../supabase';
 
 const Footer = () => {
 

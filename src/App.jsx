@@ -10,7 +10,7 @@ import PersonDetail from './pages/PersonDetail';
 import MovieDetail from './pages/MovieDetail';
 import TvShowDetail from './pages/TvShowDetail';
 import NowPlaying from './pages/NowPlaying';
-import UpComing from './pages/Upcoming';
+import UpComing from './pages/UpComing';
 import TopRated from './pages/TopRated';
 import AiringToday from './pages/AiringToday';
 import OnTv from './pages/OnTv';

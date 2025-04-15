@@ -51,12 +51,12 @@ const Profile = () => {
         <div className="w-full flex flex-col items-center gap-4 text-black p-4">
           <div className="w-full h-16 hover:bg-black/30 flex flex-col justify-center items-center">
             <div className="text-2xl sm:text-3xl md:text-4xl">
-              <p>{displayName}</p>
+              <p className='name'>{displayName}</p>
             </div>
           </div>
           <div className="w-full h-16 hover:bg-black/30 flex flex-col justify-center items-center">
             <div className="text-xl sm:text-2xl">
-              <p>{user?.user_metadata?.email}</p>
+              <p className='name'>{user?.user_metadata?.email}</p>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@ const Profile = () => {
             className="w-64 sm:w-72 h-12 text-black text-xl bg-white/10 border-blue-950 border-2 rounded-2xl hover:text-white hover:bg-blue-950 cursor-pointer"
             onClick={handleClick}
           >
-            Log out
+            <p className='button'>Log out</p>
           </button>
         </div>
       </div>
