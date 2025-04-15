@@ -10,7 +10,6 @@ import PersonDetail from './pages/PersonDetail';
 import MovieDetail from './pages/MovieDetail';
 import TvShowDetail from './pages/TvShowDetail';
 import NowPlaying from './pages/NowPlaying';
-import UpComing from './pages/UpComing';
 import TopRated from './pages/TopRated';
 import AiringToday from './pages/AiringToday';
 import OnTv from './pages/OnTv';
@@ -22,6 +21,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import Profile from './pages/Profile';
+import Upcoming from './pages/Upcoming';
 import { supabase } from './supabase';
 
 const App = () => {
@@ -62,7 +62,7 @@ const App = () => {
             <Route path='/movie/:movieId' element={<MovieDetail />}/>
             <Route path='/tv/:tvShowId' element={<TvShowDetail />}/>
             <Route path='/nowplaying' element={<NowPlaying />}/>
-            <Route path='/upcoming' element={<UpComing />}/>
+            <Route path='/upcoming' element={<Upcoming />}/>
             <Route path='/toprated' element={<TopRated />}/>
             <Route path='/airingtoday' element={<AiringToday />}/>
             <Route path='/ontv' element={<OnTv />}/>

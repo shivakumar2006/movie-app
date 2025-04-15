@@ -9,6 +9,7 @@ import { toggleTheme } from '../app/ThemeSlice';
 import { useNavigate } from 'react-router-dom';
 import { setUser } from '../features/authSlice';
 import { supabase } from '../supabase';
+import { GoBookmarkFill } from "react-icons/go";
 
 
 const Navbar = () => {
@@ -191,9 +192,9 @@ const Navbar = () => {
                             {theme === "dark" ? <FiSun /> : <BsMoonStarsFill />}
                         </button>
                     </div>
-                    {/* <div className='text-blue-400 text-2xl cursor-pointer'>
-                        <FaSearch />
-                    </div> */}
+                    <div className='text-white text-2xl hover:text-gray-400 cursor-pointer'>
+                        <GoBookmarkFill />
+                    </div>
                     {/* Profile Picture Section */}
                 <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-4 border-2 border-white rounded-full shadow-white hover:shadow-md">
                     {user && profilePicture ? (
