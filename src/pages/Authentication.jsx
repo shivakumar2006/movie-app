@@ -60,10 +60,10 @@ const Authentication = () => {
       <div className='w-full h-10 flex flex-row justify-end items-center'> 
         <div className='w-60 h-10 flex flex-row justify-evenly items-center'>
             <Link to="https://www.linkedin.com/in/shiva-shiva-8a48002a7/">
-            <BsLinkedin className='text-2xl text-black'/>
+            <BsLinkedin className='text-2xl text-blue-950'/>
             </Link>
-            <Link>
-            <FaGithub className='text-2xl text-black'/>
+            <Link to="https://github.com/shivakumar2006/movie-app.git">
+            <FaGithub className='text-2xl text-blue-950'/>
             </Link>
         </div>
       </div>
