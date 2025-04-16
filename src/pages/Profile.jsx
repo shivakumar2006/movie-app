@@ -34,9 +34,9 @@ const Profile = () => {
     <div
       className="w-screen h-screen flex justify-center items-center"
     >
-      <div className="w-80 sm:w-96 md:w-120 lg:w-160 h-auto bg-white/20 rounded-2xl flex flex-col shadow-2xl">
+      <div className="w-80 sm:w-96 md:w-120 lg:w-160 h-auto bg-blue-950/20 rounded-2xl flex flex-col shadow-2xl">
         <div className="w-full h-40 rounded-t-2xl flex flex-col justify-center items-center">
-          <div className="w-24 sm:w-32 h-24 sm:h-32 mb-0 rounded-full">
+          <div className="w-24 sm:w-32 h-24 sm:h-32 mb-0 rounded-full cursor-pointer">
             {profilePicture && (
               <img
                 src={profilePicture}
@@ -49,12 +49,12 @@ const Profile = () => {
 
         {/* user data */}
         <div className="w-full flex flex-col items-center gap-4 text-black p-4">
-          <div className="w-full h-16 hover:bg-black/30 flex flex-col justify-center items-center">
+          <div className="w-full h-16 hover:bg-black/30 flex flex-col justify-center items-center cursor-pointer">
             <div className="text-2xl sm:text-3xl md:text-4xl">
               <p className='name'>{displayName}</p>
             </div>
           </div>
-          <div className="w-full h-16 hover:bg-black/30 flex flex-col justify-center items-center">
+          <div className="w-full h-16 hover:bg-black/30 flex flex-col justify-center items-center cursor-pointer">
             <div className="text-xl sm:text-2xl">
               <p className='name'>{user?.user_metadata?.email}</p>
             </div>
