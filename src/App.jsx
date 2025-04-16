@@ -22,7 +22,7 @@ const TopRatedTvShow = lazy(() => import('./pages/TopRatedTvShow'));
 const Search = lazy(() => import('./pages/Search'));
 const Authentication = lazy(() => import('./pages/Authentication'));
 const Profile = lazy(() => import('./pages/Profile'));
-const Upcoming = lazy(() => import('./pages/Upcoming.jsx'));
+const Upcoming = lazy(() => import('./pages/Upcoming'));
 
 const App = () => {
   const theme = useSelector((state) => state.theme.theme);
