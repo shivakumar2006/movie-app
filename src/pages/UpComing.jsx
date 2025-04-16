@@ -4,7 +4,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useNavigate } from 'react-router-dom';
 
-const UpComing = () => {
+const Upcoming = () => {
 
     const [ page, setPage ] = useState(1);
     const [ language, setLanguage ] = useState();
@@ -132,4 +132,4 @@ const UpComing = () => {
     );
 }
 
-export default UpComing;
+export default Upcoming;
