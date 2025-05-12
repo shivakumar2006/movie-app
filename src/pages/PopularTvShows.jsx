@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useGetFilteredTvShowQuery, useGetPopularMoviesPagesQuery } from '../app/apiSLice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { Navigate } from 'react-router-dom';
 
 const PopularMovies = () => {
 
@@ -97,6 +98,7 @@ const PopularMovies = () => {
                                         alt={movie.title}
                                         className="w-full h-full object-cover rounded-t-2xl cursor-pointer"
                                         effect="blur"
+                                        onClick={() => Navigate(`/tv/${movie.id}`)}
                                     />
                                 </div>
                                 <div className="text-center mt-3 text-xl font-medium px-1">
