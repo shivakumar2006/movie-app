@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { useGetFilteredTvShowQuery, useGetPopularMoviesPagesQuery } from '../app/apiSLice';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const PopularMovies = () => {
 
+    const Navigate = useNavigate();
     const [ page, setPage ] = useState(1);
     const [ language, setLanguage ] = useState();
     const [ minRating, setMinRating ] = useState();
